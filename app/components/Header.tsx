@@ -41,25 +41,57 @@ export const Header = () => {
                     isPending ? "pending" : isActive ? "bg-uns-blue-gray" : "",
                   )
                 }
-                // className="px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide"
               >
                 Swap
               </NavLink>
               <NavLink
                 to="/tokens"
-                className="px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide"
+                className={({
+                  isActive,
+                  isPending,
+                }: {
+                  isActive: boolean;
+                  isPending: boolean;
+                }) =>
+                  clsx(
+                    "px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide",
+                    isPending ? "pending" : isActive ? "bg-uns-blue-gray" : "",
+                  )
+                }
               >
                 Tokens
               </NavLink>
               <NavLink
                 to="/nfts"
-                className="px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide"
+                className={({
+                  isActive,
+                  isPending,
+                }: {
+                  isActive: boolean;
+                  isPending: boolean;
+                }) =>
+                  clsx(
+                    "px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide",
+                    isPending ? "pending" : isActive ? "bg-uns-blue-gray" : "",
+                  )
+                }
               >
                 NFTs
               </NavLink>
               <NavLink
                 to="/pools"
-                className="px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide"
+                className={({
+                  isActive,
+                  isPending,
+                }: {
+                  isActive: boolean;
+                  isPending: boolean;
+                }) =>
+                  clsx(
+                    "px-3.5 py-2 my-1 text-uns-light-blue hover:bg-uns-blue-gray rounded-xl transition duration-[25ms] tracking-wide",
+                    isPending ? "pending" : isActive ? "bg-uns-blue-gray" : "",
+                  )
+                }
               >
                 Pools
               </NavLink>

@@ -1,5 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
+import Banner from "~/components/Banner";
+
 export const meta: MetaFunction = () => [
   { title: "Uniswap Clone" },
   {
@@ -15,5 +17,17 @@ export const meta: MetaFunction = () => [
 
 export default function Index() {
   // const user = useOptionalUser();
-  return <></>;
+  return (
+    <div className="min-h-screen pt-[72px] pb-20">
+      <div
+        data-testid="landing-page"
+        className="flex flex-col items-center scroll-smooth"
+      >
+        <Banner />
+        <section className="features">Features</section>
+        <section>cta</section>
+        <footer>Footer</footer>
+      </div>
+    </div>
+  );
 }
