@@ -37,7 +37,7 @@ export default {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         // "features-swap": "url('public/assets/images/swapCard.png')",
-        // cta: "url('/assets/img/ctabg.png'), radial-gradient(101.8% 4091.31% at 0% 0%, #4673fa 0%, #9646fa 100%)",
+        cta: "url('public/assets/images/ctabg.png'), radial-gradient(101.8% 4091.31% at 0% 0%, #4673fa 0%, #9646fa 100%)",
       },
       boxShadow: {
         glow: "0 0 16px 0 var(--tw-shadow-color)",
