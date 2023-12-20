@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Banner from "~/components/Banner";
 import CTA from "~/components/CTA";
 import Features from "~/components/Features";
+import Footer from "~/components/Footer";
 
 export const meta: MetaFunction = () => [
   { title: "Uniswap Clone" },
@@ -33,7 +34,7 @@ export default function Index() {
         <div className="z-10 flex w-full flex-col items-center from-black from-[0.16%] to-uns-blue-7 to-[99.85%] bg-gradient-[179.82deg] md:px-24 md:pb-20">
           <Features ref={ref} />
           <CTA />
-          <footer>Footer</footer>
+          <Footer />
         </div>
       </div>
     </div>
