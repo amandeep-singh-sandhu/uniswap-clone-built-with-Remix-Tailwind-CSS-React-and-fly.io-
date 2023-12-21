@@ -9,6 +9,7 @@ import { NetworkContext } from "../context/NetworkProvider";
 import Dropdown from "./Dropdown";
 import NetworkDropdown from "./NetworkDropdown";
 import type { selectedNetwork } from "./NetworkDropdown";
+import ConnectSidebar from "./ConnectSidebar";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ const Header = () => {
                 selectedNetwork={network}
                 onClick={onNetworkChange}
               />
-              {/* <ConnectSidebar /> */}
+              <ConnectSidebar />
             </div>
           </div>
         </div>
