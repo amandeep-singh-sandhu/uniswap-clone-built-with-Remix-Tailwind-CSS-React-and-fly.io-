@@ -13,7 +13,8 @@ import {
 import { getUser } from "~/session.server";
 import stylesheet from "~/tailwind.css";
 
-import { Header } from "./components/Header";
+import Header from "./components/Header";
+import { NetworkProvider } from "./context/NetworkProvider";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -26,7 +27,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function App() {
   return (
-    <html lang="en" className="h-full text-white bg-uns-blue text-base">
+    <html lang="en" className="h-full bg-uns-blue text-base text-white">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -34,8 +35,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header />
-        <Outlet />
+        <NetworkProvider>
+          <Header />
+          <Outlet />
+        </NetworkProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
