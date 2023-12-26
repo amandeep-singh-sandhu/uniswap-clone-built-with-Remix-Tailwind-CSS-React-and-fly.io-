@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { NavLink, useNavigate } from "@remix-run/react";
+import { Link, NavLink, useNavigate } from "@remix-run/react";
 import clsx from "clsx";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { NetworkContext } from "../context/NetworkProvider";
 
 // import ConnectSidebar from "./ConnectSidebar";
+import ConnectSidebar from "./ConnectSidebar";
 import Dropdown from "./Dropdown";
 import NetworkDropdown from "./NetworkDropdown";
 import type { selectedNetwork } from "./NetworkDropdown";
-import ConnectSidebar from "./ConnectSidebar";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,6 +22,8 @@ const Header = () => {
   const onNetworkChange = (network: selectedNetwork) => {
     setNetwork(network);
   };
+
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <div className="fixed top-0 z-[1000] flex w-full flex-row flex-nowrap justify-between">
@@ -90,12 +92,250 @@ const Header = () => {
               <Dropdown />
             </div>
           </div>
-          <div className="flex h-full shrink grow justify-center self-center">
-            <input
-              type="text"
-              placeholder="Search tokens and NFT collections"
-              className="h-full w-full"
-            />
+          {/* TODO: Find a better way to improve this functionality */}
+          <div className="relative z-10 flex h-full shrink grow flex-col items-center justify-center self-center">
+            <div
+              id="SearchBar"
+              className="flex w-[520px] items-center justify-between rounded-2xl border border-uns-pink-6 border-opacity-0 bg-black px-4 py-2 transition duration-500 hover:border-opacity-100"
+              onClick={() => setIsOpen((open) => !open)}
+            >
+              <div id="SearchBarContent" className="flex flex-1 gap-3">
+                <div id="SearchIcon">
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M21.53 20.47L17.689 16.629C18.973 15.106 19.75 13.143 19.75 11C19.75 6.175 15.825 2.25 11 2.25C6.175 2.25 2.25 6.175 2.25 11C2.25 15.825 6.175 19.75 11 19.75C13.143 19.75 15.106 18.973 16.629 17.689L20.47 21.53C20.616 21.676 20.808 21.75 21 21.75C21.192 21.75 21.384 21.677 21.53 21.53C21.823 21.238 21.823 20.763 21.53 20.47ZM3.75 11C3.75 7.002 7.002 3.75 11 3.75C14.998 3.75 18.25 7.002 18.25 11C18.25 14.998 14.998 18.25 11 18.25C7.002 18.25 3.75 14.998 3.75 11Z"
+                        fill="#9B9B9B"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search tokens and NFT collections"
+                  className="flex-1 bg-transparent text-sm outline-none"
+                />
+                <div id="SearchBarKeyShortcut">/</div>
+              </div>
+            </div>
+            {/* Search Pop Up */}
+            {isOpen ? (
+              <div className="absolute top-6 z-50 w-[520px] rounded-b-2xl bg-black px-4 py-5 text-[13px] text-gray-400">
+                <div className="flex items-center gap-3">
+                  <div>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.7474 4.99984C10.7474 4.58562 10.4116 4.24984 9.9974 4.24984C9.58318 4.24984 9.2474 4.58562 9.2474 4.99984H10.7474ZM9.9974 9.99984H9.2474C9.2474 10.2839 9.4079 10.5436 9.66199 10.6707L9.9974 9.99984ZM12.9953 12.3373C13.3658 12.5226 13.8163 12.3724 14.0015 12.0019C14.1868 11.6314 14.0366 11.1809 13.6661 10.9957L12.9953 12.3373ZM17.5807 9.99984C17.5807 14.188 14.1856 17.5832 9.9974 17.5832V19.0832C15.014 19.0832 19.0807 15.0164 19.0807 9.99984H17.5807ZM9.9974 17.5832C5.80924 17.5832 2.41406 14.188 2.41406 9.99984H0.914062C0.914062 15.0164 4.98081 19.0832 9.9974 19.0832V17.5832ZM2.41406 9.99984C2.41406 5.81168 5.80924 2.4165 9.9974 2.4165V0.916504C4.98081 0.916504 0.914062 4.98325 0.914062 9.99984H2.41406ZM9.9974 2.4165C14.1856 2.4165 17.5807 5.81168 17.5807 9.99984H19.0807C19.0807 4.98325 15.014 0.916504 9.9974 0.916504V2.4165ZM9.2474 4.99984V9.99984H10.7474V4.99984H9.2474ZM9.66199 10.6707L12.9953 12.3373L13.6661 10.9957L10.3328 9.32902L9.66199 10.6707Z"
+                        fill="#9B9B9B"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div className="font-bold tracking-wide">Recent Searches</div>
+                </div>
+                <div className="flex w-full">
+                  <Link to="/" className="flex w-full items-center gap-3 py-5">
+                    <div>
+                      <img
+                        src="/assets/images/usdcoin.png"
+                        alt="usdcoin"
+                        className="h-9 w-9"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-base font-bold tracking-wide text-white">
+                        USDCoin
+                      </p>
+                      <p className="font-semibold">USDC</p>
+                    </div>
+                    <div className="flex flex-1 flex-col place-items-end font-bold">
+                      <p className="text-base">$1.00</p>
+                      <p className="flex items-center gap-1 text-green-500">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-label="up"
+                        >
+                          <path
+                            d="M13.3021 7.7547L17.6821 14.2475C18.4182 15.3388 17.7942 17 16.6482 17L7.3518 17C6.2058 17 5.5818 15.3376 6.3179 14.2475L10.6979 7.7547C11.377 6.7484 12.623 6.7484 13.3021 7.7547Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                        <p>0.00%</p>
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.5 5.8335H18.25C18.25 5.41928 17.9142 5.0835 17.5 5.0835V5.8335ZM11.0227 12.4307L10.4876 12.9562C10.6286 13.0998 10.8214 13.1807 11.0227 13.1807C11.224 13.1807 11.4169 13.0998 11.5579 12.9562L11.0227 12.4307ZM7.61364 8.9585L8.14881 8.43305C8.00778 8.28941 7.81493 8.2085 7.61364 8.2085C7.41234 8.2085 7.21949 8.28941 7.07846 8.43305L7.61364 8.9585ZM1.96483 13.6414C1.67463 13.937 1.67899 14.4118 1.97456 14.702C2.27013 14.9922 2.74498 14.9878 3.03517 14.6923L1.96483 13.6414ZM13.4091 5.0835C12.9949 5.0835 12.6591 5.41928 12.6591 5.8335C12.6591 6.24771 12.9949 6.5835 13.4091 6.5835V5.0835ZM16.75 10.0002C16.75 10.4144 17.0858 10.7502 17.5 10.7502C17.9142 10.7502 18.25 10.4144 18.25 10.0002H16.75ZM16.9648 5.30805L10.4876 11.9053L11.5579 12.9562L18.0352 6.35894L16.9648 5.30805ZM11.5579 11.9053L8.14881 8.43305L7.07846 9.48394L10.4876 12.9562L11.5579 11.9053ZM7.07846 8.43305L1.96483 13.6414L3.03517 14.6923L8.14881 9.48394L7.07846 8.43305ZM13.4091 6.5835H17.5V5.0835H13.4091V6.5835ZM16.75 5.8335V10.0002H18.25V5.8335H16.75Z"
+                        fill="#9B9B9B"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div className="font-bold tracking-wide">Popular Tokens</div>
+                </div>
+                <div className="flex w-full">
+                  <Link to="/" className="flex w-full items-center gap-3 py-5">
+                    <div>
+                      <img
+                        src="/assets/images/ether.png"
+                        alt="usdcoin"
+                        className="h-9 w-9"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-base font-bold tracking-wide text-white">
+                        Ether
+                      </p>
+                      <p className="font-semibold">ETH</p>
+                    </div>
+                    <div className="flex flex-1 flex-col place-items-end font-bold">
+                      <p className="pl-3 text-base">$2258.54</p>
+                      <p className="flex items-center gap-1 text-green-500">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-label="up"
+                        >
+                          <path
+                            d="M13.3021 7.7547L17.6821 14.2475C18.4182 15.3388 17.7942 17 16.6482 17L7.3518 17C6.2058 17 5.5818 15.3376 6.3179 14.2475L10.6979 7.7547C11.377 6.7484 12.623 6.7484 13.3021 7.7547Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                        2.73%
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+                <div className="flex w-full">
+                  <Link to="/" className="flex w-full items-center gap-3 py-5">
+                    <div>
+                      <img
+                        src="/assets/images/usdcoin.png"
+                        alt="usdcoin"
+                        className="h-9 w-9"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-base font-bold tracking-wide text-white">
+                        USDCoin
+                      </p>
+                      <p className="font-semibold">USDC</p>
+                    </div>
+                    <div className="flex flex-1 flex-col place-items-end font-bold">
+                      <p className="text-base">$1.00</p>
+                      <p className="flex items-center gap-1 text-green-500">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-label="up"
+                        >
+                          <path
+                            d="M13.3021 7.7547L17.6821 14.2475C18.4182 15.3388 17.7942 17 16.6482 17L7.3518 17C6.2058 17 5.5818 15.3376 6.3179 14.2475L10.6979 7.7547C11.377 6.7484 12.623 6.7484 13.3021 7.7547Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                        <p>0.00%</p>
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.7474 4.99984C10.7474 4.58562 10.4116 4.24984 9.9974 4.24984C9.58318 4.24984 9.2474 4.58562 9.2474 4.99984H10.7474ZM9.9974 9.99984H9.2474C9.2474 10.2839 9.4079 10.5436 9.66199 10.6707L9.9974 9.99984ZM12.9953 12.3373C13.3658 12.5226 13.8163 12.3724 14.0015 12.0019C14.1868 11.6314 14.0366 11.1809 13.6661 10.9957L12.9953 12.3373ZM17.5807 9.99984C17.5807 14.188 14.1856 17.5832 9.9974 17.5832V19.0832C15.014 19.0832 19.0807 15.0164 19.0807 9.99984H17.5807ZM9.9974 17.5832C5.80924 17.5832 2.41406 14.188 2.41406 9.99984H0.914062C0.914062 15.0164 4.98081 19.0832 9.9974 19.0832V17.5832ZM2.41406 9.99984C2.41406 5.81168 5.80924 2.4165 9.9974 2.4165V0.916504C4.98081 0.916504 0.914062 4.98325 0.914062 9.99984H2.41406ZM9.9974 2.4165C14.1856 2.4165 17.5807 5.81168 17.5807 9.99984H19.0807C19.0807 4.98325 15.014 0.916504 9.9974 0.916504V2.4165ZM9.2474 4.99984V9.99984H10.7474V4.99984H9.2474ZM9.66199 10.6707L12.9953 12.3373L13.6661 10.9957L10.3328 9.32902L9.66199 10.6707Z"
+                        fill="#9B9B9B"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div className="font-bold tracking-wide">
+                    Popular NFT collections
+                  </div>
+                </div>
+                <div className="flex w-full">
+                  <Link to="/" className="flex w-full items-center gap-3 py-5">
+                    <div>
+                      <img
+                        src="/assets/images/azuki.avif"
+                        alt="usdcoin"
+                        className="h-9 w-9"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-base font-bold tracking-wide text-white">
+                        Azuki
+                      </p>
+                      <p className="font-semibold">10,000 items</p>
+                    </div>
+                    <div className="flex flex-1 flex-col place-items-end font-bold">
+                      <p className="text-base">6.36 ETH</p>
+                      <p className="flex items-center gap-1">
+                        <p>Floor</p>
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+                <div className="flex w-full">
+                  <Link to="/" className="flex w-full items-center gap-3 py-5">
+                    <div>
+                      <img
+                        src="/assets/images/mutant.avif"
+                        alt="usdcoin"
+                        className="h-9 w-9"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-base font-bold tracking-wide text-white">
+                        Mutant Ape Yacht Club
+                      </p>
+                      <p className="font-semibold">19,485 items</p>
+                    </div>
+                    <div className="flex flex-1 flex-col place-items-end font-bold">
+                      <p className="text-base">5.29 ETH</p>
+                      <p className="flex items-center gap-1">
+                        <p>Floor</p>
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            ) : null}
           </div>
           <div className="flex shrink grow justify-end self-center">
             <div className="flex items-center gap-3">
